@@ -36,6 +36,23 @@ def appendDigits(i, inputString, values):
     values.append(value)
     i-=1
     return i, inputString, values
+
+def evaluateHigherPrecFromStack(i, inputString, values, operators):
+    while (len(operators) != 0 and precedence(operators[-1]) >= precedence(inputString[i])): 
+        value2 = values.pop()
+        value1 = values.pop()
+        operator = operators.pop()
+        values.append(sub_calc(value1, value2, operator))
+    operators.append(inputString[i])
+    return i, inputString, values, operators
+
+def evaluateRemainingStack(values, operators):
+    while len(operators) != 0:
+        value2 = values.pop()
+        value1 = values.pop()
+        operator = operators.pop()   
+        values.append(sub_calc(value1, value2, operator))
+    return values
     
 
 if __name__ == '__main__':
