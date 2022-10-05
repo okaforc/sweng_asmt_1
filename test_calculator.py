@@ -117,4 +117,42 @@ def testAppendDigits():
     values = []
     i, inputString, values = appendDigits(i, inputString, values)
     assert expected == values[0]
+    
+# Test if evaluate can handle addition with multiple arguments
+def testAddition():
+    input = "45+23+101"
+    expected = 169
+    result = evaluate(input)
+    assert expected == result
 
+    input = "5+300+20"
+    expected = 325
+    result = evaluate(input)
+    assert expected == result
+
+# Test evaluate with multiple arguments
+def testEvaluate():
+    input = "45+23-101*2"
+    expected = -134
+    result = evaluate(input)
+    assert expected == result
+
+    input = "5+300*0"
+    expected = 5
+    result = evaluate(input)
+    assert expected == result
+
+    input = "5*12-6"
+    expected = 54
+    result = evaluate(input)
+    assert expected == result
+
+    input = "100*10-100"
+    expected = 900
+    result = evaluate(input)
+    assert expected == result
+
+    input = "10*10*8"
+    expected = 800
+    result = evaluate(input)
+    assert expected == result
