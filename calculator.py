@@ -53,6 +53,20 @@ def evaluateRemainingStack(values, operators):
         operator = operators.pop()   
         values.append(sub_calc(value1, value2, operator))
     return values
+
+def evaluate(inputString):
+    if(verifyString(inputString) == False): return "String is malformed"
+    values = []
+    operators = []
+    i = 0
+    while i < len(inputString):
+        if inputString[i].isdigit():
+            i, inputString, values = appendDigits(i, inputString, values)
+        else:
+            i, inputString, values, operators = evaluateHigherPrecFromStack(i, inputString, values, operators)
+        i += 1
+    values = evaluateRemainingStack(values, operators)
+    return values[-1]
     
 
 if __name__ == '__main__':
