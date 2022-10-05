@@ -59,7 +59,7 @@ def evaluate(inputString):
     values = []
     operators = []
     i = 0
-    while i < len(inputString) - 1:
+    while i < len(inputString):
         if inputString[i].isdigit():
             i, inputString, values = appendDigits(i, inputString, values)
         else:
