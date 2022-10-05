@@ -95,3 +95,26 @@ def testSubCalcSubtraction():
     result = sub_calc(5, 10, '-')
     assert expected == result
 
+# Test digit appender for converting strings to integers
+def testAppendDigits():
+    expected = 123
+    i = 0
+    inputString = "123"
+    values = []
+    i, inputString, values = appendDigits(i, inputString, values)
+    assert expected == values[0]
+
+    expected = 491
+    i = 0
+    inputString = "491"
+    values = []
+    i, inputString, values = appendDigits(i, inputString, values)
+    assert expected == values[0]
+
+    expected = 7516
+    i = 0
+    inputString = "7516"
+    values = []
+    i, inputString, values = appendDigits(i, inputString, values)
+    assert expected == values[0]
+

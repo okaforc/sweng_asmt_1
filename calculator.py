@@ -27,6 +27,15 @@ def sub_calc(a, b, operators):
     if operators == "+": return a + b
     if operators == "-": return a - b
     if operators == "*": return a * b
+
+def appendDigits(i, inputString, values):
+    value = 0
+    while (i < len(inputString) and inputString[i].isdigit()):
+        value = (value * 10) + int(inputString[i])
+        i += 1
+    values.append(value)
+    i-=1
+    return i, inputString, values
     
 
 if __name__ == '__main__':
