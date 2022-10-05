@@ -1,5 +1,36 @@
 from calculator import *
 
+# See if correctly formed strings are detected
+def testCorrectStrings():
+    expected = True
+
+    input = "1+2"
+    result = verifyString(input)
+    assert expected == result
+
+    input = "46+23"
+    result = verifyString(input)
+    assert expected == result
+
+    input = "45-34+24632*478"
+    result = verifyString(input)
+    assert expected == result
+
+# See if malformed strings are detected
+def testMalformedStrings():
+    expected = False
+
+    input = "1+s2"
+    result = verifyString(input)
+    assert expected == result
+
+    input = "4-*47"
+    result = verifyString(input)
+    assert expected == result
+
+    input = "3+8-"
+    result = verifyString(input)
+    assert expected == result
 
 # Test if precedence is correctly handled
 def testPrecedence():
