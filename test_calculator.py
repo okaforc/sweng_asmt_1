@@ -2,35 +2,31 @@ from calculator import *
 
 # See if correctly formed strings are detected
 def testCorrectStrings():
-    expected = True
-
     input = "1+2"
     result = verifyString(input)
-    assert expected == result
+    assert result == "1+2"
 
     input = "46+23"
     result = verifyString(input)
-    assert expected == result
+    assert result == "46+23"
 
     input = "45-34+24632*478"
     result = verifyString(input)
-    assert expected == result
+    assert result == "45-34+24632*478"
 
 # See if malformed strings are detected
 def testMalformedStrings():
-    expected = False
-
     input = "1+s2"
     result = verifyString(input)
-    assert expected == result
+    assert result == "Error: Unknown/Disallowed character: s"
 
     input = "4-*47"
     result = verifyString(input)
-    assert expected == result
+    assert result == "Error: Duplicate operation: -*"
 
     input = "3+8-"
     result = verifyString(input)
-    assert expected == result
+    assert result == "Error: Ended on an operator: -"
 
 # Test if precedence is correctly handled
 def testPrecedence():

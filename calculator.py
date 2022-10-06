@@ -4,19 +4,20 @@ def main():
 
 def verifyString(input):
     symbol = False
-    for c in input:
+    for i in range(len(input)):
+        c = input[i]
         if(c == '+' or c == '-' or c == '*'):
             if(symbol == True):
-                return False # duplicate operation
+                return "Error: Duplicate operation: " + input[i-1] + c
             else:
                 symbol = True
         elif(ord(c) >= ord('0') and ord(c) <= ord('9')):
             symbol = False
         else:
-            return False # unknown/disallowed character
+            return "Error: Unknown/Disallowed character: " + c
     if(symbol == False):
-        return True
-    return False # ended on an operator instead of a number
+        return input
+    return "Error: Ended on an operator: " + c
 
 def precedence(operators):
     if operators == '+' or operators == '-': return 1
@@ -55,7 +56,7 @@ def evaluateRemainingStack(values, operators):
     return values
 
 def evaluate(inputString):
-    if(verifyString(inputString) == False): return "String is malformed"
+    if "Error" in verifyString(inputString): return inputString
     values = []
     operators = []
     i = 0
