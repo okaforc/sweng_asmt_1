@@ -56,7 +56,8 @@ def evaluateRemainingStack(values, operators):
     return values
 
 def evaluate(inputString):
-    if "Error" in verifyString(inputString): return inputString
+    inputString = verifyString(inputString)
+    if "Error" in inputString: return inputString
     values = []
     operators = []
     i = 0
