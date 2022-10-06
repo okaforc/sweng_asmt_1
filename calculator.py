@@ -1,22 +1,22 @@
 def main():
     print("Hello World")
-    print(sub_calc(1, 2, "*"))
+    print(calc())
 
 def verifyString(input):
     symbol = False
     for c in input:
         if(c == '+' or c == '-' or c == '*'):
             if(symbol == True):
-                return False
+                return False # duplicate operation
             else:
                 symbol = True
         elif(ord(c) >= ord('0') and ord(c) <= ord('9')):
             symbol = False
         else:
-            return False
+            return False # unknown/disallowed character
     if(symbol == False):
         return True
-    return False
+    return False # ended on an operator instead of a number
 
 def precedence(operators):
     if operators == '+' or operators == '-': return 1
@@ -67,6 +67,10 @@ def evaluate(inputString):
         i += 1
     values = evaluateRemainingStack(values, operators)
     return values[-1]
+
+def calc():
+    user_input = input()
+    return evaluate(user_input)
     
 
 if __name__ == '__main__':
