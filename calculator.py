@@ -1,22 +1,23 @@
 def main():
     print("Hello World")
-    print(sub_calc(1, 2, "*"))
+    print(calc())
 
 def verifyString(input):
     symbol = False
-    for c in input:
+    for i in range(len(input)):
+        c = input[i]
         if(c == '+' or c == '-' or c == '*'):
             if(symbol == True):
-                return False
+                return "Error: Duplicate operation: " + input[i-1] + c
             else:
                 symbol = True
         elif(ord(c) >= ord('0') and ord(c) <= ord('9')):
             symbol = False
         else:
-            return False
+            return "Error: Unknown/Disallowed character: " + c
     if(symbol == False):
-        return True
-    return False
+        return input
+    return "Error: Ended on an operator: " + c
 
 def precedence(operators):
     if operators == '+' or operators == '-': return 1
@@ -55,7 +56,7 @@ def evaluateRemainingStack(values, operators):
     return values
 
 def evaluate(inputString):
-    if(verifyString(inputString) == False): return "String is malformed"
+    if "Error" in verifyString(inputString): return inputString
     values = []
     operators = []
     i = 0
@@ -67,6 +68,10 @@ def evaluate(inputString):
         i += 1
     values = evaluateRemainingStack(values, operators)
     return values[-1]
+
+def calc():
+    user_input = input()
+    return evaluate(user_input)
     
 
 if __name__ == '__main__':
