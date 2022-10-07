@@ -19,6 +19,10 @@ def testMalformedStrings():
     input = "1+s2"
     result = verifyString(input)
     assert result == "Error: Unknown/Disallowed character: s"
+    
+    input = "1/2"
+    result = verifyString(input)
+    assert result == "Error: Unknown/Disallowed character: /"
 
     input = "4-*47"
     result = verifyString(input)
@@ -27,6 +31,29 @@ def testMalformedStrings():
     input = "3+8-"
     result = verifyString(input)
     assert result == "Error: Ended on an operator: -"
+    
+    input = "10---10"
+    result = verifyString(input)
+    assert result == "Error: Duplicate operation: --"
+    
+    input = "-10*--10"
+    result = verifyString(input)
+    assert result == "Error: Duplicate operation: *-"
+    
+    input = "+10"
+    result = verifyString(input)
+    assert result == "Error: Invalid starting operator: +"
+    
+    input = "*10"
+    result = verifyString(input)
+    assert result == "Error: Invalid starting operator: *"
+    
+    input = "---10"
+    result = verifyString(input)
+    assert result == "Error: Invalid starting operator: -"
+    
+    # not resetting it interferes with other tests, so it is reset here for that purpose
+    reset_neg_pos() 
 
 # Test if precedence is correctly handled
 def testPrecedence():
@@ -90,6 +117,14 @@ def testSubCalcSubtraction():
     expected = -5
     result = sub_calc(5, 10, '-')
     assert expected == result
+    
+    expected = 15
+    result = sub_calc(5, -10, '-')
+    assert expected == result
+    
+    expected = -10
+    result = sub_calc(-5, 5, '-')
+    assert expected == result
 
 # Test digit appender for converting strings to integers
 def testAppendDigits():
@@ -150,5 +185,30 @@ def testEvaluate():
 
     input = "10*10*8"
     expected = 800
+    result = evaluate(input)
+    assert expected == result
+    
+    input = "100--100"
+    expected = 200
+    result = evaluate(input)
+    assert expected == result
+    
+    input = "-100--100"
+    expected = 0
+    result = evaluate(input)
+    assert expected == result
+    
+    input = "100--100--100--100--100--100--100"
+    expected = 700
+    result = evaluate(input)
+    assert expected == result
+    
+    input = "-1-2*-3-1000*0+3"
+    expected = 8
+    result = evaluate(input)
+    assert expected == result
+    
+    input = "3*3*3*3*3*3*-3*-3*-3"
+    expected = -19683
     result = evaluate(input)
     assert expected == result
